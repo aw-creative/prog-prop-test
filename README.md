@@ -3,7 +3,7 @@
 ## Instructions
 
 Clone this Repository
-In the root folder run composer install
+In the root folder run `composer install`
 Copy the env.example file to .env
 Enter your getaddress.io api key in to the bottom of the .env file you just created
 

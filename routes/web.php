@@ -20,4 +20,3 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/find/{postcode}', 'PostCodeController@getPostcode');
-

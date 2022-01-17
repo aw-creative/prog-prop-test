@@ -9,33 +9,31 @@ class PostCodeController extends Controller
 
 
     /**
-     * Forwards a simple service to proxy getAddress.
+     * Retrieves information about a postcode from getaddress.io.
      *
-     * @param mixed $postcode
+     * @param string $postcode
      *
      * @return Response
      */
     public function getPostcode($postcode){
         $apiKey = config('getaddress.key');
-        try{
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', "https://api.getAddress.io/find/$postcode",
-            ['query' => [
-                'expand'  => 'true',
-                'api-key' => $apiKey
-            ]]);
-            if($response->getStatusCode() == 200){
+            try{
+                $client = new \GuzzleHttp\Client();
+                $response = $client->request('GET', "https://api.getAddress.io/find/$postcode",
+                ['query' => [
+                    'expand'  => 'true',
+                    'api-key' => $apiKey
+                ]]);
                 return $response;
+
+            } catch (ClientException $e) {
+                // Catch any Guzzle Errors and forward this error to the user.
+                $response = $e->getResponse();
+                $responseBodyAsString = $response->getBody()->getContents();
+                return response()->json($responseBodyAsString,$response->getStatusCode());
             }
-            else{
-                return $response->getBody();
-            }
-        } catch (ClientException $e) {
-            // Catch any Guzzle Errors and forward this error to the user.
-            $response = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-            return response()->json($responseBodyAsString,$response->getStatusCode());
-        }
+        // Return any other errors as a json response
+
     }
 
 }
