@@ -1,24 +1,19 @@
-# Lumen PHP Framework
+# Andrew Wade Tech Test
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## Instructions
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Clone this Repository
+In the root folder run composer install
+Copy the env.example file to .env
+Enter your getaddress.io api key in to the bottom of the .env file you just created
 
-## Official Documentation
+## Laravel Lumen
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+This Test Tech is running on Laravel Lumen.
 
-## Contributing
+You should only need to look at the routes/web.php file to see how routing is handled.
+\App\Http\Controller\PostCodeController which has a single method, usually single method controllers should use the magic __Invoke method, but a controller like this would often have more than one method for different endpoints to proxy to.
+the config folder has a single file containing the config values for getaddress.io keys. caching the config can often improve perfoamcne so is best practice to keep env values kere so they can be cached for production environments.
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Other than that. serve the application however you prefer to, and hit the find/{postcode} endpoints}
+It will return the json response from the getaddress.io api to the user, or return the relevant error messages should the request fail.
