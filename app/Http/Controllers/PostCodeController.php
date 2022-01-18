@@ -17,23 +17,21 @@ class PostCodeController extends Controller
      */
     public function getPostcode($postcode){
         $apiKey = config('getaddress.key');
-            try{
-                $client = new \GuzzleHttp\Client();
-                $response = $client->request('GET', "https://api.getAddress.io/find/$postcode",
-                ['query' => [
-                    'expand'  => 'true',
-                    'api-key' => $apiKey
-                ]]);
-                return $response;
+        try{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', "https://api.getAddress.io/find/$postcode",
+            ['query' => [
+                'expand'  => 'true',
+                'api-key' => $apiKey
+            ]]);
+            return response($response->getBody()->getContents(), 200);
 
-            } catch (ClientException $e) {
-                // Catch any Guzzle Errors and forward this error to the user.
-                $response = $e->getResponse();
-                $responseBodyAsString = $response->getBody()->getContents();
-                return response()->json($responseBodyAsString,$response->getStatusCode());
-            }
-        // Return any other errors as a json response
-
+        } catch (ClientException $e) {
+            // Catch any Guzzle Errors and forward this error to the user.
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+            return response()->json($responseBodyAsString,$response->getStatusCode());
+        }
     }
 
 }
